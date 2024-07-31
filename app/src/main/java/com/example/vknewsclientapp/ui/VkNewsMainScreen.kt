@@ -1,70 +1,35 @@
 package com.example.vknewsclientapp.ui
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.vknewsclientapp.domain.FeedPost
 import com.example.vknewsclientapp.ui.theme.VkNewsClientAppTheme
-import kotlinx.coroutines.launch
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {
-    val snackBarHostState = SnackbarHostState()
-    val scope = rememberCoroutineScope()
-    val fabIsVisible = remember {
-        mutableStateOf(true)
+
+    val feedPost = remember {
+        mutableStateOf(FeedPost())
     }
+
     Scaffold(
-        snackbarHost = {
-            SnackbarHost(hostState = snackBarHostState)
-        },
-        floatingActionButton = {
-            if(fabIsVisible.value) {
-                FloatingActionButton(
-                    shape = CircleShape,
-                    containerColor = MaterialTheme.colorScheme.onSecondary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                    onClick = {
-                        scope.launch {
-                            val action = snackBarHostState.showSnackbar(
-                                "This is snackbar",
-                                actionLabel = "Hide FAB",
-                                duration = SnackbarDuration.Long
-                            )
-                            if(action == SnackbarResult.ActionPerformed){
-                                fabIsVisible.value = false
-                            }
-                        }
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Favorite,
-                        contentDescription = null
-                    )
-                }
-            }
-        },
         bottomBar = {
             NavigationBar {
                 val items = listOf(
@@ -101,7 +66,23 @@ fun MainScreen() {
 
         }
     ) {
-
+        PostCard(
+            modifier = Modifier.padding(all = 8.dp),
+            feedPost = feedPost.value,
+            onStatisticItemClickListener = { newItem ->
+                val oldStatistic = feedPost.value.statistic
+                val newStatistics = oldStatistic.toMutableList().apply {
+                    replaceAll { oldItem ->
+                        if (oldItem.type == newItem.type){
+                            oldItem.copy(count = oldItem.count + 1)
+                        } else {
+                            oldItem
+                        }
+                    }
+                }
+                feedPost.value = feedPost.value.copy(statistic = newStatistics)
+            }
+        )
     }
 }
 
