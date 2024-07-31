@@ -24,19 +24,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.vknewsclientapp.R
 import com.example.vknewsclientapp.domain.FeedPost
 import com.example.vknewsclientapp.domain.StatisticItem
 import com.example.vknewsclientapp.domain.StatisticType
-import com.example.vknewsclientapp.ui.theme.VkNewsClientAppTheme
 
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
     feedPost: FeedPost,
-    onStatisticItemClickListener: (StatisticItem) -> Unit
+    onLikeClickListener: (StatisticItem) -> Unit,
+    onShareClickListener: (StatisticItem) -> Unit,
+    onCommentClickListener: (StatisticItem) -> Unit,
+    onViewsClickListener: (StatisticItem) -> Unit,
 ) {
     Card(
         modifier = modifier
@@ -63,7 +64,10 @@ fun PostCard(
             Spacer(modifier = Modifier.height(8.dp))
             Statistics(
                 feedPost.statistic,
-                onItemClickListener = onStatisticItemClickListener
+                onLikeClickListener = onLikeClickListener,
+                onShareClickListener = onShareClickListener,
+                onCommentClickListener = onCommentClickListener,
+                onViewsClickListener = onViewsClickListener
             )
         }
     }
@@ -112,7 +116,10 @@ private fun PostHeader(
 @Composable
 private fun Statistics(
     statistics: List<StatisticItem>,
-    onItemClickListener: (StatisticItem) -> Unit
+    onLikeClickListener: (StatisticItem) -> Unit,
+    onShareClickListener: (StatisticItem) -> Unit,
+    onCommentClickListener: (StatisticItem) -> Unit,
+    onViewsClickListener: (StatisticItem) -> Unit,
 ) {
     Row {
         Row(
@@ -124,7 +131,7 @@ private fun Statistics(
                 iconResId = R.drawable.ic_views_count,
                 text = viewsItem.count.toString(),
                 onItemClickListener = {
-                    onItemClickListener(viewsItem)
+                    onViewsClickListener(viewsItem)
                 }
             )
         }
@@ -139,7 +146,7 @@ private fun Statistics(
                 iconResId = R.drawable.ic_share,
                 text = shareItem.count.toString(),
                 onItemClickListener = {
-                    onItemClickListener(shareItem)
+                    onShareClickListener(shareItem)
                 }
             )
 
@@ -148,7 +155,7 @@ private fun Statistics(
                 iconResId = R.drawable.ic_comment,
                 text = commentItem.count.toString(),
                 onItemClickListener = {
-                    onItemClickListener(commentItem)
+                    onCommentClickListener(commentItem)
                 }
             )
 
@@ -157,7 +164,7 @@ private fun Statistics(
                 iconResId = R.drawable.ic_like,
                 text = likeItem.count.toString(),
                 onItemClickListener = {
-                    onItemClickListener(likeItem)
+                    onLikeClickListener(likeItem)
                 }
             )
         }
@@ -189,31 +196,6 @@ private fun IconWithText(
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onSecondary
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun PostCardLightPreview() {
-    VkNewsClientAppTheme(darkTheme = false) {
-        PostCard(
-            Modifier.padding(8.dp),
-            FeedPost(),
-            onStatisticItemClickListener = {}
-        )
-    }
-}
-
-
-@Preview
-@Composable
-private fun PostCardDarkPreview() {
-    VkNewsClientAppTheme(darkTheme = true) {
-        PostCard(
-            Modifier.padding(8.dp),
-            FeedPost(),
-            onStatisticItemClickListener = {}
         )
     }
 }
