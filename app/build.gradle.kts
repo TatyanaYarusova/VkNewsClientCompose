@@ -73,6 +73,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.gson)
 
-    implementation (libs.android.sdk.core)
-    implementation (libs.android.sdk.api)
+    implementation(libs.android.sdk.core)
+    implementation(libs.android.sdk.api)
+
+    implementation(libs.retrofit)
+    implementation(libs.okhttp3)
+    implementation(libs.coil)
 }
