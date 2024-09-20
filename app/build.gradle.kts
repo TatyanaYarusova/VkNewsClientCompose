@@ -72,4 +72,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.gson)
+
+    implementation (libs.android.sdk.core)
+    implementation (libs.android.sdk.api)
 }
