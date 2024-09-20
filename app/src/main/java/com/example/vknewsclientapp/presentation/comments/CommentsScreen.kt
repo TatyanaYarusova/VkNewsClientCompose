@@ -1,4 +1,4 @@
-package com.example.vknewsclientapp.ui
+package com.example.vknewsclientapp.presentation.comments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vknewsclientapp.domain.FeedPost
 import com.example.vknewsclientapp.domain.PostComment
-import com.example.vknewsclientapp.presentation.CommentsViewModel
-import com.example.vknewsclientapp.presentation.CommentsViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

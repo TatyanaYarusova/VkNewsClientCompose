@@ -1,4 +1,4 @@
-package com.example.vknewsclientapp
+package com.example.vknewsclientapp.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,10 +6,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.vknewsclientapp.presentation.MainViewModel
-import com.example.vknewsclientapp.ui.AuthState
-import com.example.vknewsclientapp.ui.LoginScreen
-import com.example.vknewsclientapp.ui.MainScreen
 import com.example.vknewsclientapp.ui.theme.VkNewsClientAppTheme
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKScope

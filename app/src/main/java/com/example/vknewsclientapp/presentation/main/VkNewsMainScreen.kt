@@ -1,4 +1,4 @@
-package com.example.vknewsclientapp.ui
+package com.example.vknewsclientapp.presentation.main
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.Icon
@@ -15,6 +15,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.vknewsclientapp.navigation.AppNavGraph
 import com.example.vknewsclientapp.navigation.rememberNavigationState
+import com.example.vknewsclientapp.presentation.comments.CommentsScreen
+import com.example.vknewsclientapp.presentation.news.NewsFeedScreen
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -69,7 +71,7 @@ fun MainScreen() {
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
 
-                HomeScreen(
+                NewsFeedScreen(
                     onCommentClickListener = {
                         navigationState.navigateToComments(it)
                     }

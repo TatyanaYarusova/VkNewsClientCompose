@@ -1,11 +1,10 @@
-package com.example.vknewsclientapp.presentation
+package com.example.vknewsclientapp.presentation.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vknewsclientapp.domain.FeedPost
 import com.example.vknewsclientapp.domain.StatisticItem
-import com.example.vknewsclientapp.ui.NewsFeedScreenState
 
 class NewsFeedViewModel : ViewModel() {
 
@@ -45,7 +44,7 @@ class NewsFeedViewModel : ViewModel() {
                 }
             }
         }
-        _screenState.value =NewsFeedScreenState.Posts(posts = newPosts)
+        _screenState.value = NewsFeedScreenState.Posts(posts = newPosts)
     }
 
     fun remove(item: FeedPost) {
