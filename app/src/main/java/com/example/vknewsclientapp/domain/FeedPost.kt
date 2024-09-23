@@ -3,24 +3,18 @@ package com.example.vknewsclientapp.domain
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.navigation.NavType
-import com.example.vknewsclientapp.R
 import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FeedPost(
-    val id: Int = 0,
-    val communityName: String = "/deb/null",
-    val publicationDate: String = "14:00",
-    val avatarResId: Int = R.drawable.post_comunity_thumbnail,
-    val contentText: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    val contentImageResId: Int = R.drawable.post_content_image,
-    val statistic: List<StatisticItem> = listOf(
-        StatisticItem(type = StatisticType.VIEWS, count = 966),
-        StatisticItem(type = StatisticType.SHARES, count = 7),
-        StatisticItem(type = StatisticType.COMMENTS, count = 8),
-        StatisticItem(type = StatisticType.LIKES, count = 27),
-    )
+    val id: String,
+    val communityName: String,
+    val publicationDate: String,
+    val communityImageUrl: String,
+    val contentText: String,
+    val contentImageUrl: String?,
+    val statistic: List<StatisticItem>,
 ): Parcelable {
     companion object {
         val NavigationType: NavType<FeedPost> = object : NavType<FeedPost>(false) {
