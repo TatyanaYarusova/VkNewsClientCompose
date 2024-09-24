@@ -1,19 +1,24 @@
 package com.example.vknewsclientapp.presentation.news
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vknewsclientapp.domain.FeedPost
+import com.example.vknewsclientapp.ui.theme.DarkBlue
 
 @Composable
 fun NewsFeedScreen(
@@ -30,6 +35,14 @@ fun NewsFeedScreen(
                 onCommentClickListener = onCommentClickListener
 
             )
+        }
+        NewsFeedScreenState.Loading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = DarkBlue)
+            }
         }
         NewsFeedScreenState.Initial -> {}
     }
@@ -69,14 +82,8 @@ private fun FeedPosts(
             ) {
                 PostCard(
                     feedPost = post,
-                    onViewsClickListener = { statisticItem ->
-                        viewModel.updateCount(post, statisticItem)
-                    },
                     onLikeClickListener = { _ ->
                         viewModel.changeLikeStatus(post)
-                    },
-                    onShareClickListener = { statisticItem ->
-                        viewModel.updateCount(post, statisticItem)
                     },
                     onCommentClickListener = { _ ->
                         onCommentClickListener(post)
