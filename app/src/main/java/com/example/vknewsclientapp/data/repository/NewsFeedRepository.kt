@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.vknewsclientapp.data.mapper.dtoToEntity
 import com.example.vknewsclientapp.data.network.ApiFactory
 import com.example.vknewsclientapp.domain.FeedPost
+import com.example.vknewsclientapp.domain.PostComment
 import com.example.vknewsclientapp.domain.StatisticItem
 import com.example.vknewsclientapp.domain.StatisticType
 import com.vk.api.sdk.VKPreferencesKeyValueStorage
@@ -62,6 +63,15 @@ class NewsFeedRepository(application: Application) {
             postId = feedPost.id
         )
         _feedPosts.remove(feedPost)
+    }
+
+    suspend fun getComments(feedPost: FeedPost): List<PostComment> {
+        val comments = apiService.getComments(
+            token = getAccessToken(),
+            ownerId = feedPost.communityId,
+            postId = feedPost.id
+        )
+        return comments.dtoToEntity()
     }
 
 }
