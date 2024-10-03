@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.vknewsclientapp.domain.FeedPost
+import com.example.vknewsclientapp.domain.entity.FeedPost
 import com.example.vknewsclientapp.ui.theme.DarkBlue
 
 @Composable

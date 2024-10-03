@@ -1,4 +1,4 @@
-package com.example.vknewsclientapp.domain
+package com.example.vknewsclientapp.domain.entity
 
 import android.os.Bundle
 import android.os.Parcelable
