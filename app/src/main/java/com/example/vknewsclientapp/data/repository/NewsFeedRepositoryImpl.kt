@@ -1,8 +1,7 @@
 package com.example.vknewsclientapp.data.repository
 
-import android.app.Application
 import com.example.vknewsclientapp.data.mapper.dtoToEntity
-import com.example.vknewsclientapp.data.network.ApiFactory
+import com.example.vknewsclientapp.data.network.ApiService
 import com.example.vknewsclientapp.domain.entity.AuthState
 import com.example.vknewsclientapp.domain.entity.FeedPost
 import com.example.vknewsclientapp.domain.entity.PostComment
@@ -21,10 +20,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class NewsFeedRepositoryImpl(application: Application): NewsFeedRepository {
+class NewsFeedRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val storage: VKPreferencesKeyValueStorage,
+): NewsFeedRepository {
 
-    private val storage = VKPreferencesKeyValueStorage(application)
+
     private val token get() = VKAccessToken.restore(storage)
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
@@ -57,7 +60,7 @@ class NewsFeedRepositoryImpl(application: Application): NewsFeedRepository {
         }
 
 
-    private val apiService = ApiFactory.apiService
+
 
     private val _feedPosts = mutableListOf<FeedPost>()
     private val feedPosts: List<FeedPost> get() = _feedPosts.toList()
